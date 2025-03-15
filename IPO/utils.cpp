@@ -39,3 +39,68 @@ void nuRead(const QString& filePath)
 
     file.close();
 }
+
+QVector<double> operator*(const QVector<double>& v1, const QVector<double>& v2)
+{
+    if (v1.size() != v2.size())
+    {
+        qWarning() << "Размеры векторов не совпадают";
+        return QVector<double>();
+    }
+
+    if (v1.size() != 3)
+    {
+        qWarning() << "функция не реализована для size != 3";
+        return QVector<double>();
+    }
+
+    QVector<double> result(v1.size());
+
+    result[0] = v1[1] * v2[2] - v1[2] * v2[1];
+    result[1] = v1[2] * v2[0] - v1[0] * v2[2];
+    result[2] = v1[0] * v2[2] - v1[1] * v2[0];
+
+    return result;
+}
+
+QVector<double> operator*(double c, const QVector<double>& v)
+{
+    QVector<double> result(v.size());
+
+    for (int i = 0; i < result.size(); ++i)
+    {
+        result[i] = c * v[i];
+    }
+
+    return result;
+}
+
+QVector<double> operator-(const QVector<double>& v1, const QVector<double>& v2)
+{
+    if (v1.size() != v2.size())
+    {
+        qWarning() << "Размеры векторов не совпадают";
+        return QVector<double>();
+    }
+
+    QVector<double> result(v1.size());
+
+    for (int i = 0; i < result.size(); ++i)
+    {
+        result[i] = v1[i] - v2[i];
+    }
+
+    return result;
+}
+
+QVector<double> operator/(const QVector<double>& v, double c)
+{
+    QVector<double> result(v.size());
+
+    for (int i = 0; i < result.size(); ++i)
+    {
+        result[i] = v[i] / c;
+    }
+
+    return result;
+}

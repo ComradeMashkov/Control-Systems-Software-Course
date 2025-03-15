@@ -20,15 +20,15 @@ void mainEngine()
     }
     ipo.Priz_vkl_md = ipo.upr_md;
 
-    if (ipo.Priz_vkl_md == EngineState::On)
-    {  // Двигатель включен
+    if (ipo.Priz_vkl_md == EngineState::On) // Двигатель включен
+    {
         QVariant interpolated = interpolateLinear(tFrontMdOn, pFrontMdOn, Tsl - t_md);
         ipo.Pmd = interpolated.isValid() ? interpolated.toDouble() : 1.0;
     }
-    else
-    {  // Двигатель выключен
-        if (t_md >= 0.01)
-        { // Исключаем ошибку при малом t_md
+    else // Двигатель выключен
+    {
+        if (t_md >= 0.01) // Исключаем ошибку при малом t_md
+        {
             QVariant interpolated = interpolateLinear(tFrontMdOff, pFrontMdOff, Tsl - t_md);
             ipo.Pmd = interpolated.isValid() ? interpolated.toDouble() : 0.0;
         }
